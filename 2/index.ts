@@ -1,23 +1,7 @@
 const fs = require("node:fs/promises");
 async function aoc2_1() {
   try {
-    const data = await fs.readFile("./input.txt", { encoding: "utf8" });
-
-    let reports: Array<Array<number>> = [];
-
-    for (const report of data.split("\n")) {
-      const current = report.split(" ");
-      let currentArray: Array<number> = [];
-      for (const num of current) {
-        const next = parseInt(num);
-        if (!isNaN(next)) {
-          currentArray.push(next);
-          continue;
-        }
-        throw new Error("Not a number");
-      }
-      reports.push(currentArray);
-    }
+    const reports = await readInput();    
 
     let numberOfValidReports = 0;
 
@@ -36,23 +20,7 @@ async function aoc2_1() {
 
 async function aoc2_2() {
   try {
-    const data = await fs.readFile("./input.txt", { encoding: "utf8" });
-
-    let reports: Array<Array<number>> = [];
-
-    for (const report of data.split("\n")) {
-      const current = report.split(" ");
-      let currentArray: Array<number> = [];
-      for (const num of current) {
-        const next = parseInt(num);
-        if (!isNaN(next)) {
-          currentArray.push(next);
-          continue;
-        }
-        throw new Error("Not a number");
-      }
-      reports.push(currentArray);
-    }
+    const reports = await readInput();    
 
     let numberOfValidReports = 0;
 
@@ -74,6 +42,28 @@ async function aoc2_2() {
   } catch (err) {
     console.log(err);
   }
+}
+
+
+const readInput = async () => {
+    const data = await fs.readFile("./input.txt", { encoding: "utf8" });
+
+    let reports: Array<Array<number>> = [];
+
+    for (const report of data.split("\n")) {
+      const current = report.split(" ");
+      let currentArray: Array<number> = [];
+      for (const num of current) {
+        const next = parseInt(num);
+        if (!isNaN(next)) {
+          currentArray.push(next);
+          continue;
+        }
+        throw new Error("Not a number");
+      }
+      reports.push(currentArray);
+    }
+    return reports;
 }
 
 const isSafe = (report: Array<number>) => {
