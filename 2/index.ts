@@ -22,26 +22,9 @@ async function aoc2_1() {
     let numberOfValidReports = 0;
 
     for (const report of reports) {
-      let direction = 0; // 0 = init 1 = up 2 = down
-      let valid = true;
-      for (let i = 1; i < report.length; i++) {
-        const distance = report[i] - report[i - 1];
-
-        //if the direction changes, the report is invalid
-        const currentDirection = distance > 0 ? 1 : 2;
-        if (direction !== 0 && currentDirection !== direction) {
-          valid = false;
-          break;
-        }
-        direction = currentDirection;
-        const absoluteDistance = Math.abs(distance);
-        //when the distance is greater than 3 or 0, the report is invalid
-        if (absoluteDistance > 3 || absoluteDistance === 0) {
-          valid = false;
-          break;
-        }
-      }
-      numberOfValidReports += valid ? 1 : 0;
+      if(isSafe(report)) {
+        numberOfValidReports++;
+      }      
     }
 
     console.log(numberOfValidReports);
